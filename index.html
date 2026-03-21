@@ -187,7 +187,6 @@
       height: 100%;
     }
 
-    /* Estilo para o Card Expansível da NVIDIA */
     .card-expandable {
       cursor: pointer;
       grid-column: span 1;
@@ -231,7 +230,6 @@
     .contacts-container a { margin-right: 25px; color: #fff; text-decoration: none; font-size: 14px; border-bottom: 1px solid transparent; transition: 0.3s; }
     .contacts-container a:hover { border-bottom: 1px solid #fff; color: var(--text-gray); }
 
-    /* Garante que o clique no ícone de fechar funcione */
     #card-icon { cursor: pointer; }
 
     @media (max-width: 992px) {
@@ -284,14 +282,15 @@
   <h2 data-aos="fade-right">Projetos Selecionados</h2>
   <div class="cards">
     
-    <!-- CARD NVIDIA INTERATIVO -->
     <div class="card card-expandable" id="nvidia-project" data-aos="fade-up">
       <div class="card-content">
         <h3>Projeto NVIDIA <i class="fa-solid fa-chevron-down" id="card-icon" style="font-size: 14px; margin-left: 10px; transition: 0.4s;"></i></h3>
         <p id="nvidia-desc">Análise financeira avançada explorando volatilidade e candlestick de mercado com Python. <strong>(Clique para expandir/recolher)</strong></p>
         
         <div class="chart-wrapper" id="chart-area">
-          <iframe src="grafico_nvda.html" width="100%" height="400px" frameborder="0" style="border-radius: 8px; background: #1a1a1a;"></iframe>
+          <!-- IFRAME CORRIGIDO ABAIXO -->
+          <iframe src="grafico_nvda.html" width="100%" height="400px" frameborder="0" scrolling="no" style="border-radius: 8px; background: #1a1a1a; overflow: hidden; display: block;"></iframe>
+          
           <div style="margin-top: 30px; text-align: center;">
             <p style="margin-bottom: 15px; color: #fff;">Análise completa de volatilidade e drawdowns disponível no repositório.</p>
             <a href="https://github.com/pedroanalyticsdev/nvidia-stock-analysis" target="_blank" class="btn-outline" onclick="event.stopPropagation();">
@@ -364,18 +363,13 @@
     easing: 'ease-out-cubic'
   });
 
-  // Lógica de expansão e fechamento corrigida
   const nvidiaCard = document.getElementById('nvidia-project');
   const cardIcon = document.getElementById('card-icon');
 
   nvidiaCard.addEventListener('click', function(e) {
-    // Alterna a classe active
     const isActive = this.classList.toggle('active');
-    
-    // Gira o ícone (180 graus se ativo, 0 se inativo)
     cardIcon.style.transform = isActive ? 'rotate(180deg)' : 'rotate(0deg)';
     
-    // Se estiver abrindo, faz o scroll suave
     if (isActive) {
       setTimeout(() => {
         this.scrollIntoView({ behavior: 'smooth', block: 'center' });
