@@ -101,7 +101,7 @@
       border: 2px solid var(--accent);
       border-radius: 20px;
       z-index: 1; 
-      top: 25px; 
+      top: 25px;
       left: calc(50% - 185px);
       box-shadow: 0 0 30px rgba(255, 255, 255, 0.1); 
       opacity: 0.3; 
@@ -119,6 +119,15 @@
       top: 15px;
       left: calc(50% - 195px);
       box-shadow: 0 0 50px rgba(255, 255, 255, 0.2);
+    }
+
+    .hero-text .greeting {
+      text-transform: uppercase;
+      letter-spacing: 4px;
+      font-size: 12px;
+      color: var(--text-gray);
+      margin-bottom: 10px;
+      display: block;
     }
 
     .hero-text h1 {
@@ -162,18 +171,11 @@
       box-shadow: 0 10px 20px rgba(255,255,255,0.1);
     }
 
-    /* Estilo específico para o botão de download - FORÇANDO BRANCO */
-    .btn-download-white {
-      background: #ffffff !important;
-      color: #000000 !important;
-      border-color: #ffffff !important;
-    }
-
     .section { padding: 60px 8%; } 
     .section h2 { font-size: 32px; margin-bottom: 30px; font-weight: 700; position: relative; display: inline-block; }
     .section h2::after { content: ''; position: absolute; width: 40px; height: 2px; background: #fff; bottom: -10px; left: 0; }
 
-    .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
+    .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; align-items: start; }
     
     .card { 
       background: var(--card-bg); 
@@ -183,7 +185,18 @@
       transition: 0.4s cubic-bezier(0.165, 0.84, 0.44, 1); 
       backdrop-filter: blur(5px);
       height: 100%;
+    }
+
+    .card-expandable {
       cursor: pointer;
+      grid-column: span 1;
+      transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
+    }
+
+    .card-expandable.active {
+      grid-column: 1 / -1; 
+      cursor: default;
+      border-color: #fff;
     }
 
     .card:hover { 
@@ -192,62 +205,22 @@
       background: rgba(255,255,255,0.05); 
     }
 
-    /* --- ESTILOS DO MODAL --- */
-    .modal {
-      display: none; 
-      position: fixed; 
-      z-index: 2000; 
-      left: 0; top: 0;
-      width: 100%; height: 100%;
-      background-color: rgba(0,0,0,0.9);
-      backdrop-filter: blur(10px);
-      justify-content: center;
-      align-items: center;
-    }
+    .card h3 { margin-bottom: 15px; font-weight: 600; font-size: 20px; }
+    .card p { color: var(--text-gray); font-size: 15px; }
 
-    .modal-content {
-      background: #111;
-      padding: 30px 20px;
-      border-radius: 12px;
-      width: 95%;
-      max-width: 1000px;
-      border: 1px solid var(--border-color);
-      position: relative;
-      text-align: center;
-    }
-
-    .close-modal {
-      position: absolute;
-      top: 10px; right: 15px;
-      color: #fff;
-      font-size: 35px;
-      cursor: pointer;
-      line-height: 1;
-    }
-
-    .iframe-container {
-      width: 100%;
-      height: 500px;
-      margin: 15px 0;
-      border-radius: 8px;
+    .chart-wrapper {
+      height: 0;
       overflow: hidden;
-      background: #000;
+      opacity: 0;
+      transition: all 0.5s ease;
+      margin-top: 0;
     }
 
-    /* --- RESPONSIVIDADE --- */
-    @media (max-width: 992px) {
-      .hero { flex-direction: column-reverse; text-align: center; height: auto; padding: 120px 8% 40px; }
-      .hero-text { text-align: center; display: flex; flex-direction: column; align-items: center; }
-      .hero-img img { width: 300px; height: 380px; }
-      .hero-img::after { width: 300px; height: 380px; top: 15px; left: calc(50% - 135px); }
-      .iframe-container { height: 350px; }
-      .section { padding: 40px 5%; }
-    }
-
-    @media (max-width: 600px) {
-      .hero-text h1 { font-size: 1.8rem; }
-      .iframe-container { height: 300px; }
-      .modal-content { padding: 40px 10px 20px; }
+    .active .chart-wrapper {
+      height: auto;
+      opacity: 1;
+      margin-top: 25px;
+      padding-bottom: 20px;
     }
 
     .skills-grid { display: flex; flex-wrap: wrap; gap: 15px; }
@@ -256,6 +229,21 @@
 
     .contacts-container a { margin-right: 25px; color: #fff; text-decoration: none; font-size: 14px; border-bottom: 1px solid transparent; transition: 0.3s; }
     .contacts-container a:hover { border-bottom: 1px solid #fff; color: var(--text-gray); }
+
+    #card-icon { cursor: pointer; }
+
+    @media (max-width: 992px) {
+      .hero { flex-direction: column-reverse; text-align: center; height: auto; padding: 120px 8% 40px; }
+      .hero-text { text-align: center; display: flex; flex-direction: column; align-items: center; }
+      .hero-img img { width: 300px; height: 380px; }
+      .hero-img::after { 
+        width: 300px; 
+        height: 380px; 
+        top: 15px;
+        left: calc(50% - 135px);
+      }
+      .section { padding: 40px 8%; }
+    }
   </style>
 </head>
 <body>
@@ -273,14 +261,13 @@
 
 <section class="hero" id="home">
   <div class="hero-text" data-aos="fade-right">
-    <span style="text-transform: uppercase; letter-spacing: 4px; font-size: 12px; color: var(--text-gray); margin-bottom: 10px; display: block;">Olá, eu sou Pedro Henrique</span>
+    <span class="greeting">Olá, eu sou Pedro Henrique</span>
     <h1>Analista de Dados & <br>Programador</h1>
     <p class="description">Estudante de Análise e Desenvolvimento de Sistemas focado em extrair inteligência de dados com Python, SQL e tecnologias modernas.</p>
     
     <div class="btn-container">
       <a class="btn-outline" href="#projetos">Ver Projetos</a>
-      <!-- BOTÃO DE DOWNLOAD COM CLASSE DE COR FORÇADA -->
-      <a class="btn-outline btn-download-white" href="curriculo.pdf" download="Curriculo_Pedro_Henrique.pdf">
+      <a class="btn-outline" style="background: #fff; color: #000;" href="curriculo.pdf" download="Curriculo_Pedro_Henrique.pdf">
         <i class="fa-solid fa-download" style="margin-right: 8px;"></i> Currículo
       </a>
     </div>
@@ -292,11 +279,26 @@
 </section>
 
 <section class="section" id="projetos">
-  <h2 data-aos="fade-right">Projetos Selecionados</h2>
+  <h2 data-aos="fade-right">Projetos Pessoais</h2>
   <div class="cards">
-    <div class="card" data-aos="fade-up" onclick="openProject()">
-      <h3>Projeto NVIDIA <i class="fa-solid fa-chart-line" style="font-size: 14px; margin-left: 5px;"></i></h3>
-      <p>Análise financeira avançada explorando volatilidade e drawdown de mercado com Python. <strong>(Toque para ver o Dashboard)</strong></p>
+    
+    <div class="card card-expandable" id="nvidia-project" data-aos="fade-up">
+      <div class="card-content">
+        <h3>Projeto NVIDIA <i class="fa-solid fa-chevron-down" id="card-icon" style="font-size: 14px; margin-left: 10px; transition: 0.4s;"></i></h3>
+        <p id="nvidia-desc">Análise financeira avançada explorando volatilidade e candlestick de mercado com Python. <strong>(Toque para ver o Dashboard)</strong></p>
+        
+        <div class="chart-wrapper" id="chart-area">
+          <!-- IFRAME CORRIGIDO ABAIXO -->
+          <iframe src="grafico_nvda.html" width="100%" height="400px" frameborder="0" scrolling="no" style="border-radius: 8px; background: #1a1a1a; overflow: hidden; display: block;"></iframe>
+          
+          <div style="margin-top: 30px; text-align: center;">
+            <p style="margin-bottom: 15px; color: #fff;">Análise completa de volatilidade e drawdowns disponível no repositório.</p>
+            <a href="https://github.com/pedroanalyticsdev/nvidia-stock-analysis" target="_blank" class="btn-outline" onclick="event.stopPropagation();">
+              Para ver o projeto completo clique aqui <i class="fa-solid fa-arrow-up-right-from-square" style="margin-left: 8px;"></i>
+            </a>
+          </div>
+        </div>
+      </div>
     </div>
 
     <div class="card" data-aos="fade-up" data-aos-delay="100">
@@ -309,17 +311,6 @@
     </div>
   </div>
 </section>
-
-<div id="projectModal" class="modal">
-  <span class="close-modal" onclick="closeProject()">&times;</span>
-  <div class="modal-content">
-    <h3 style="margin-bottom: 5px; font-size: 1.2rem;">Dashboard Interativo NVIDIA</h3>
-    <div class="iframe-container">
-      <iframe src="grafico_nvda.html" style="width: 100%; height: 100%; border: none;" scrolling="no"></iframe>
-    </div>
-    <p style="font-size: 14px;">Para ver o código completo <a href="https://github.com/pedroanalyticsdev/nvidia-stock-analysis" target="_blank" style="color: #fff; text-decoration: underline;">clique aqui</a></p>
-  </div>
-</div>
 
 <section class="section" id="sobre">
   <div data-aos="fade-up">
@@ -349,7 +340,7 @@
   <h2 data-aos="fade-up">Conectar</h2>
   <div class="contacts-container">
     <a href="mailto:p.souza123754@gmail.com" data-aos="fade-up" data-aos-delay="100">
-      <i class="fa-regular fa-envelope"></i> Email
+      <i class="fa-regular fa-envelope"></i> Email Profissional
     </a>
     <a href="https://www.linkedin.com/in/pedro-henrique-souza-santos-4064b9352/" target="_blank" data-aos="fade-up" data-aos-delay="200">
       <i class="fa-brands fa-linkedin"></i> LinkedIn
@@ -357,25 +348,34 @@
     <a href="https://github.com/pedroanalyticsdev" target="_blank" data-aos="fade-up" data-aos-delay="300">
       <i class="fa-brands fa-github"></i> GitHub
     </a>
+    <a href="tel:+5511967270622" data-aos="fade-up" data-aos-delay="400">
+      <i class="fa-solid fa-phone"></i> (11) 96727-0622
+    </a>
   </div>
 </section>
 
 <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 <script>
-  AOS.init({ once: true, offset: 50, duration: 1000, easing: 'ease-out-cubic' });
+  AOS.init({
+    once: true,
+    offset: 50,
+    duration: 1000,
+    easing: 'ease-out-cubic'
+  });
 
-  const modal = document.getElementById("projectModal");
-  function openProject() {
-    modal.style.display = "flex";
-    document.body.style.overflow = "hidden";
-  }
-  function closeProject() {
-    modal.style.display = "none";
-    document.body.style.overflow = "auto";
-  }
-  window.onclick = function(event) {
-    if (event.target == modal) { closeProject(); }
-  }
+  const nvidiaCard = document.getElementById('nvidia-project');
+  const cardIcon = document.getElementById('card-icon');
+
+  nvidiaCard.addEventListener('click', function(e) {
+    const isActive = this.classList.toggle('active');
+    cardIcon.style.transform = isActive ? 'rotate(180deg)' : 'rotate(0deg)';
+    
+    if (isActive) {
+      setTimeout(() => {
+        this.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }, 400);
+    }
+  });
 </script>
 
 </body>
