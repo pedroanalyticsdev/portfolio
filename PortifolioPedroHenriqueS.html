@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pedro Henrique | Portfólio</title>
+  
+  <!-- Fonts & Icons -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  
+  <!-- AOS (Animate on Scroll) -->
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
+  <style>
+    :root {
+      --bg: #0d0d0d;
+      --card-bg: rgba(26, 26, 26, 0.4);
+      --border-color: #2a2a2a;
+      --text-gray: #aaa;
+      --accent: #ffffff;
+    }
+
+    * { margin:0; padding:0; box-sizing:border-box; scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background-color: var(--bg);
+      background-image: 
+        radial-gradient(circle at 80% 20%, rgba(255,255,255,0.05) 0%, transparent 40%),
+        radial-gradient(circle at 10% 80%, rgba(255,255,255,0.03) 0%, transparent 30%);
+      color: #fff;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    header {
+      display: flex;
+      justify-content: space-between;
+      padding: 20px 8%;
+      align-items: center;
+      position: fixed;
+      top: 0;
+      width: 100%;
+      z-index: 1000;
+      background: rgba(13, 13, 13, 0.8);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    .logo { font-weight: 800; font-size: 20px; letter-spacing: 2px; }
+
+    nav a {
+      margin: 0 15px;
+      text-decoration: none;
+      color: var(--text-gray);
+      font-size: 14px;
+      transition: 0.3s;
+    }
+
+    nav a:hover { color: #fff; }
+
+    .hero {
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 8%;
+      gap: 40px;
+    }
+
+    .hero-text { 
+      flex: 1;
+      max-width: 650px; 
+      text-align: left;
+    }
+
+    .hero-img {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+    }
+
+    .hero-img img {
+      width: 350px;
+      height: 450px;
+      object-fit: cover;
+      border-radius: 20px;
+      filter: grayscale(40%) contrast(110%);
+      border: 1px solid var(--border-color);
+      box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+      transition: 0.5s ease;
+    }
+
+    .hero-img img:hover {
+      filter: grayscale(0%) contrast(100%);
+      transform: scale(1.02);
+      border-color: var(--accent);
+    }
+
+    .hero-img::after {
+      content: '';
+      position: absolute;
+      width: 350px;
+      height: 450px;
+      border: 2px solid var(--accent);
+      border-radius: 20px;
+      z-index: -1;
+      top: 20px;
+      left: calc(50% - 155px);
+      opacity: 0.2;
+    }
+
+    .hero-text .greeting {
+      text-transform: uppercase;
+      letter-spacing: 4px;
+      font-size: 12px;
+      color: var(--text-gray);
+      margin-bottom: 10px;
+      display: block;
+    }
+
+    .hero-text h1 {
+      font-size: clamp(2rem, 5vw, 3.5rem);
+      font-weight: 800;
+      line-height: 1.1;
+      margin-bottom: 25px;
+      letter-spacing: -1px;
+    }
+
+    .hero-text p.description {
+      color: var(--text-gray);
+      font-size: 18px;
+      margin-bottom: 40px;
+    }
+
+    .btn-outline {
+      display: inline-block;
+      border: 1px solid #fff;
+      padding: 12px 30px;
+      border-radius: 4px;
+      color: #fff;
+      text-decoration: none;
+      font-weight: 600;
+      transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      font-size: 13px;
+    }
+
+    .btn-outline:hover {
+      background: #fff;
+      color: #000;
+      transform: translateY(-5px);
+      box-shadow: 0 10px 20px rgba(255,255,255,0.1);
+    }
+
+    /* ESPAÇAMENTOS REDUZIDOS AQUI */
+    .section { padding: 60px 8%; } 
+    .section h2 { font-size: 32px; margin-bottom: 30px; font-weight: 700; position: relative; display: inline-block; }
+    .section h2::after { content: ''; position: absolute; width: 40px; height: 2px; background: #fff; bottom: -10px; left: 0; }
+
+    .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
+    
+    .card-link {
+      text-decoration: none;
+      color: inherit;
+      display: block;
+    }
+
+    .card { 
+      background: var(--card-bg); 
+      padding: 40px; 
+      border-radius: 4px; 
+      border: 1px solid var(--border-color); 
+      transition: 0.4s cubic-bezier(0.165, 0.84, 0.44, 1); 
+      backdrop-filter: blur(5px);
+      height: 100%;
+    }
+
+    .card:hover { 
+      border-color: #fff; 
+      transform: translateY(-10px); 
+      background: rgba(255,255,255,0.05); 
+    }
+
+    .card h3 { margin-bottom: 15px; font-weight: 600; font-size: 20px; }
+    .card p { color: var(--text-gray); font-size: 15px; }
+
+    .skills-grid { display: flex; flex-wrap: wrap; gap: 15px; }
+    .skills-grid span { border: 1px solid var(--border-color); padding: 10px 25px; border-radius: 4px; font-size: 14px; transition: 0.3s; }
+    .skills-grid span:hover { background: #fff; color: #000; border-color: #fff; }
+
+    .contacts-container a { margin-right: 25px; color: #fff; text-decoration: none; font-size: 14px; border-bottom: 1px solid transparent; transition: 0.3s; }
+    .contacts-container a:hover { border-bottom: 1px solid #fff; color: var(--text-gray); }
+
+    @media (max-width: 992px) {
+      .hero { flex-direction: column-reverse; text-align: center; height: auto; padding: 120px 8% 40px; }
+      .hero-text { text-align: center; }
+      .hero-img img { width: 280px; height: 350px; }
+      .hero-img::after { display: none; }
+      .section { padding: 40px 8%; }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="logo">PH</div>
+  <nav>
+    <a href="#home">Home</a>
+    <a href="#projetos">Projetos</a>
+    <a href="#sobre">Sobre</a>
+    <a href="#skills">Skills</a>
+    <a href="#contato">Contato</a>
+  </nav>
+</header>
+
+<section class="hero" id="home">
+  <div class="hero-text" data-aos="fade-right" data-aos-duration="1000">
+    <span class="greeting">Olá, eu sou Pedro Henrique</span>
+    <h1>Analista de Dados & <br>Programador</h1>
+    <p class="description">Estudante de Análise e Desenvolvimento de Sistemas focado em extrair inteligência de dados com Python, SQL e tecnologias modernas.</p>
+    <a class="btn-outline" href="#projetos">Ver Projetos</a>
+  </div>
+
+  <div class="hero-img" data-aos="fade-left" data-aos-duration="1000">
+    <img src="https://i.postimg.cc/NjmBhMm7/foto-portifolio.jpg" alt="Pedro Henrique">
+  </div>
+</section>
+
+<section class="section" id="projetos">
+  <h2 data-aos="fade-right">Projetos Selecionados</h2>
+  <div class="cards">
+    <a href="https://github.com/pedroanalyticsdev/nvidia-stock-analysis" target="_blank" class="card-link" data-aos="fade-up">
+      <div class="card">
+        <h3>Projeto NVIDIA <i class="fa-solid fa-arrow-up-right-from-square" style="font-size: 12px; margin-left: 5px;"></i></h3>
+        <p>Análise financeira avançada explorando volatilidade e drawdown de mercado com Python.</p>
+      </div>
+    </a>
+
+    <div class="card" data-aos="fade-up" data-aos-delay="100">
+      <h3>Business Intelligence</h3>
+      <p>Criação de dashboards dinâmicos para visualização de métricas e suporte à decisão.</p>
+    </div>
+    <div class="card" data-aos="fade-up" data-aos-delay="200">
+      <h3>Data Engineering</h3>
+      <p>Estruturação de bancos de dados robustos utilizando MySQL e PostgreSQL.</p>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="sobre">
+  <div data-aos="fade-up">
+    <h2>Sobre Mim</h2>
+    <p style="max-width: 800px; color: var(--text-gray); font-size: 18px;">
+      Atualmente cursando Análise e Desenvolvimento de Sistemas na Anhembi Morumbi. Combino lógica de programação com visão analítica para resolver problemas complexos através dos dados. Procuro constantemente evoluir meu stack tecnológico e contribuir em projetos de alto impacto.
+    </p>
+  </div>
+</section>
+
+<section class="section" id="skills">
+  <h2 data-aos="fade-right">Minhas Skills</h2>
+  <div class="skills-grid" data-aos="fade-up">
+    <span>Python</span>
+    <span>MySQL</span>
+    <span>PostgreSQL</span>
+    <span>Power BI</span>
+    <span>Pandas / NumPy</span>
+    <span>Seaborn</span>
+    <span>Plotly</span>
+    <span>Jupyter Notebook</span>
+    <span>Git & GitHub</span>
+  </div>
+</section>
+
+<section class="section" id="contato">
+  <h2 data-aos="fade-up">Conectar</h2>
+  <div class="contacts-container">
+    <!-- Delays progressivos (100, 200, 300, 400) criam fluidez -->
+    <a href="mailto:p.souza123754@gmail.com" data-aos="fade-up" data-aos-delay="100">
+      <i class="fa-regular fa-envelope"></i> Email Profissional
+    </a>
+    <a href="https://www.linkedin.com/in/pedro-henrique-souza-santos-4064b9352/" target="_blank" data-aos="fade-up" data-aos-delay="200">
+      <i class="fa-brands fa-linkedin"></i> LinkedIn
+    </a>
+    <a href="https://github.com/pedroanalyticsdev" target="_blank" data-aos="fade-up" data-aos-delay="300">
+      <i class="fa-brands fa-github"></i> GitHub
+    </a>
+    <a href="tel:+5511967270622" data-aos="fade-up" data-aos-delay="400">
+      <i class="fa-solid fa-phone"></i> (11) 96727-0622
+    </a>
+  </div>
+</section>
+
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<script>
+  AOS.init({
+    once: true,
+    offset: 50, // Diminuído para ativar a animação mais cedo
+    duration: 1000, // Aumentado para 1 segundo (mais suave)
+    easing: 'ease-out-cubic' // Curva de animação mais natural
+  });
+</script>
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<script>
+  AOS.init({
+    once: true,
+    offset: 120,
+    duration: 800
+  });
+</script>
+
+</body>
+</html>
