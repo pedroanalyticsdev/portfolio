@@ -288,11 +288,17 @@
         <p id="nvidia-desc">Análise financeira avançada explorando volatilidade e candlestick de mercado com Python. <strong>(Toque para ver o Dashboard)</strong></p>
         
         <div class="chart-wrapper" id="chart-area">
-          <!-- IFRAME CORRIGIDO ABAIXO -->
-          <iframe src="grafico_nvda.html" width="100%" height="400px" frameborder="0" scrolling="no" style="border-radius: 8px; background: #1a1a1a; overflow: hidden; display: block;"></iframe>
+          <!-- ALTURA AJUSTADA PARA 600PX E FUNDO TRANSPARENTE -->
+          <iframe src="grafico_nvda.html" 
+                  width="100%" 
+                  height="600px" 
+                  frameborder="0" 
+                  scrolling="no" 
+                  style="border-radius: 8px; background: transparent; overflow: hidden; display: block;">
+          </iframe>
           
-          <div style="margin-top: 30px; text-align: center;">
-            <p style="margin-bottom: 15px; color: #fff;">Análise completa de volatilidade e drawdowns disponível no repositório.</p>
+          <div style="margin-top: 20px; text-align: center;">
+            <p style="margin-bottom: 15px; color: var(--text-gray); font-size: 14px;">Análise completa de volatilidade e drawdowns disponível no repositório.</p>
             <a href="https://github.com/pedroanalyticsdev/nvidia-stock-analysis" target="_blank" class="btn-outline" onclick="event.stopPropagation();">
               Para ver o projeto completo clique aqui <i class="fa-solid fa-arrow-up-right-from-square" style="margin-left: 8px;"></i>
             </a>
