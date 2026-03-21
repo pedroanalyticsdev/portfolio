@@ -73,6 +73,7 @@
       text-align: left;
     }
 
+    /* --- CONTAINER DA IMAGEM --- */
     .hero-img {
       flex: 1;
       display: flex;
@@ -81,10 +82,10 @@
       position: relative;
     }
 
-    /* --- AJUSTE NA FOTO (AUMENTADA) --- */
+    /* --- FOTO AUMENTADA --- */
     .hero-img img {
-      width: 420px; /* Aumentado de 350px */
-      height: 540px; /* Aumentado de 450px */
+      width: 420px; 
+      height: 540px; 
       object-fit: cover;
       border-radius: 20px;
       filter: grayscale(40%) contrast(110%);
@@ -92,39 +93,39 @@
       box-shadow: 0 20px 40px rgba(0,0,0,0.5);
       transition: 0.5s ease;
       position: relative;
-      z-index: 2;
+      z-index: 2; /* Fica na frente do retângulo */
     }
 
-    /* --- ADIÇÃO DA LUZ SUAVE (GLOW) EM VOLTA --- */
+    /* --- RETÂNGULO ATRÁS + LUZ SUAVE (GLOW) --- */
     .hero-img::after {
       content: '';
       position: absolute;
-      /* Mesmas medidas da imagem aumentada */
       width: 420px; 
       height: 540px;
+      border: 2px solid var(--accent); /* O "negócio" que ficava atrás */
       border-radius: 20px;
-      z-index: 1; /* Atrás da foto, mas na frente do BG */
-      top: 0;
-      left: calc(50% - 210px); /* Centralizado com base na nova largura (420/2) */
+      z-index: 1; 
+      top: 25px; /* Deslocamento para baixo */
+      left: calc(50% - 185px); /* Deslocamento para a direita */
       
-      /* Efeito de Luz Suave (Glow) */
-      box-shadow: 0 0 30px 10px rgba(255, 255, 255, 0.1); 
-      
-      opacity: 0.5; /* Começa suave */
+      /* Luz suave combinada */
+      box-shadow: 0 0 30px rgba(255, 255, 255, 0.1); 
+      opacity: 0.3; 
       transition: 0.5s ease;
     }
 
-    /* Efeito ao passar o mouse na área da imagem */
+    /* Efeitos de Hover */
     .hero-img:hover img {
       filter: grayscale(0%) contrast(100%);
       transform: scale(1.02);
       border-color: var(--accent);
     }
 
-    /* Intensifica a luz ao passar o mouse */
     .hero-img:hover::after {
-      opacity: 1;
-      box-shadow: 0 0 50px 15px rgba(255, 255, 255, 0.15);
+      opacity: 0.8;
+      top: 15px;
+      left: calc(50% - 195px);
+      box-shadow: 0 0 50px rgba(255, 255, 255, 0.2);
     }
 
     .hero-text .greeting {
@@ -220,20 +221,16 @@
     .contacts-container a { margin-right: 25px; color: #fff; text-decoration: none; font-size: 14px; border-bottom: 1px solid transparent; transition: 0.3s; }
     .contacts-container a:hover { border-bottom: 1px solid #fff; color: var(--text-gray); }
 
-    /* --- RESPONSIVIDADE AJUSTADA --- */
     @media (max-width: 992px) {
       .hero { flex-direction: column-reverse; text-align: center; height: auto; padding: 120px 8% 40px; }
       .hero-text { text-align: center; display: flex; flex-direction: column; align-items: center; }
       
-      /* Reduzindo a foto um pouco menos no mobile para manter o destaque */
-      .hero-img img { width: 320px; height: 410px; }
-      
-      /* Mantendo o glow no mobile, ajustando a posição */
+      .hero-img img { width: 300px; height: 380px; }
       .hero-img::after { 
-        width: 320px; 
-        height: 410px; 
-        left: calc(50% - 160px);
-        opacity: 0.4;
+        width: 300px; 
+        height: 380px; 
+        top: 15px;
+        left: calc(50% - 135px);
       }
       
       .section { padding: 40px 8%; }
@@ -273,6 +270,7 @@
   </div>
 </section>
 
+<!-- Restante das seções permanecem as mesmas -->
 <section class="section" id="projetos">
   <h2 data-aos="fade-right">Projetos Selecionados</h2>
   <div class="cards">
