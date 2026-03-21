@@ -7,7 +7,6 @@
   
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-  
   <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 
   <style>
@@ -73,7 +72,6 @@
       text-align: left;
     }
 
-    /* --- CONTAINER DA IMAGEM --- */
     .hero-img {
       flex: 1;
       display: flex;
@@ -82,7 +80,6 @@
       position: relative;
     }
 
-    /* --- FOTO AUMENTADA --- */
     .hero-img img {
       width: 420px; 
       height: 540px; 
@@ -93,28 +90,24 @@
       box-shadow: 0 20px 40px rgba(0,0,0,0.5);
       transition: 0.5s ease;
       position: relative;
-      z-index: 2; /* Fica na frente do retângulo */
+      z-index: 2;
     }
 
-    /* --- RETÂNGULO ATRÁS + LUZ SUAVE (GLOW) --- */
     .hero-img::after {
       content: '';
       position: absolute;
       width: 420px; 
       height: 540px;
-      border: 2px solid var(--accent); /* O "negócio" que ficava atrás */
+      border: 2px solid var(--accent);
       border-radius: 20px;
       z-index: 1; 
-      top: 25px; /* Deslocamento para baixo */
-      left: calc(50% - 185px); /* Deslocamento para a direita */
-      
-      /* Luz suave combinada */
+      top: 25px;
+      left: calc(50% - 185px);
       box-shadow: 0 0 30px rgba(255, 255, 255, 0.1); 
       opacity: 0.3; 
       transition: 0.5s ease;
     }
 
-    /* Efeitos de Hover */
     .hero-img:hover img {
       filter: grayscale(0%) contrast(100%);
       transform: scale(1.02);
@@ -178,23 +171,12 @@
       box-shadow: 0 10px 20px rgba(255,255,255,0.1);
     }
 
-    .btn-download {
-      background: #fff;
-      color: #000;
-    }
-
     .section { padding: 60px 8%; } 
     .section h2 { font-size: 32px; margin-bottom: 30px; font-weight: 700; position: relative; display: inline-block; }
     .section h2::after { content: ''; position: absolute; width: 40px; height: 2px; background: #fff; bottom: -10px; left: 0; }
 
-    .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
+    .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; align-items: start; }
     
-    .card-link {
-      text-decoration: none;
-      color: inherit;
-      display: block;
-    }
-
     .card { 
       background: var(--card-bg); 
       padding: 40px; 
@@ -203,6 +185,19 @@
       transition: 0.4s cubic-bezier(0.165, 0.84, 0.44, 1); 
       backdrop-filter: blur(5px);
       height: 100%;
+    }
+
+    /* Estilo para o Card Expansível da NVIDIA */
+    .card-expandable {
+      cursor: pointer;
+      grid-column: span 1;
+      transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
+    }
+
+    .card-expandable.active {
+      grid-column: 1 / -1; 
+      cursor: default;
+      border-color: #fff;
     }
 
     .card:hover { 
@@ -214,6 +209,21 @@
     .card h3 { margin-bottom: 15px; font-weight: 600; font-size: 20px; }
     .card p { color: var(--text-gray); font-size: 15px; }
 
+    .chart-wrapper {
+      height: 0;
+      overflow: hidden;
+      opacity: 0;
+      transition: all 0.5s ease;
+      margin-top: 0;
+    }
+
+    .active .chart-wrapper {
+      height: auto;
+      opacity: 1;
+      margin-top: 25px;
+      padding-bottom: 20px;
+    }
+
     .skills-grid { display: flex; flex-wrap: wrap; gap: 15px; }
     .skills-grid span { border: 1px solid var(--border-color); padding: 10px 25px; border-radius: 4px; font-size: 14px; transition: 0.3s; }
     .skills-grid span:hover { background: #fff; color: #000; border-color: #fff; }
@@ -221,10 +231,12 @@
     .contacts-container a { margin-right: 25px; color: #fff; text-decoration: none; font-size: 14px; border-bottom: 1px solid transparent; transition: 0.3s; }
     .contacts-container a:hover { border-bottom: 1px solid #fff; color: var(--text-gray); }
 
+    /* Garante que o clique no ícone de fechar funcione */
+    #card-icon { cursor: pointer; }
+
     @media (max-width: 992px) {
       .hero { flex-direction: column-reverse; text-align: center; height: auto; padding: 120px 8% 40px; }
       .hero-text { text-align: center; display: flex; flex-direction: column; align-items: center; }
-      
       .hero-img img { width: 300px; height: 380px; }
       .hero-img::after { 
         width: 300px; 
@@ -232,9 +244,7 @@
         top: 15px;
         left: calc(50% - 135px);
       }
-      
       .section { padding: 40px 8%; }
-      .btn-container { justify-content: center; }
     }
   </style>
 </head>
@@ -259,7 +269,7 @@
     
     <div class="btn-container">
       <a class="btn-outline" href="#projetos">Ver Projetos</a>
-      <a class="btn-outline btn-download" href="curriculo.pdf" download="Curriculo_Pedro_Henrique.pdf">
+      <a class="btn-outline" style="background: #fff; color: #000;" href="curriculo.pdf" download="Curriculo_Pedro_Henrique.pdf">
         <i class="fa-solid fa-download" style="margin-right: 8px;"></i> Currículo
       </a>
     </div>
@@ -270,16 +280,27 @@
   </div>
 </section>
 
-<!-- Restante das seções permanecem as mesmas -->
 <section class="section" id="projetos">
   <h2 data-aos="fade-right">Projetos Selecionados</h2>
   <div class="cards">
-    <a href="https://github.com/pedroanalyticsdev/nvidia-stock-analysis" target="_blank" class="card-link" data-aos="fade-up">
-      <div class="card">
-        <h3>Projeto NVIDIA <i class="fa-solid fa-arrow-up-right-from-square" style="font-size: 12px; margin-left: 5px;"></i></h3>
-        <p>Análise financeira avançada explorando volatilidade e drawdown de mercado com Python.</p>
+    
+    <!-- CARD NVIDIA INTERATIVO -->
+    <div class="card card-expandable" id="nvidia-project" data-aos="fade-up">
+      <div class="card-content">
+        <h3>Projeto NVIDIA <i class="fa-solid fa-chevron-down" id="card-icon" style="font-size: 14px; margin-left: 10px; transition: 0.4s;"></i></h3>
+        <p id="nvidia-desc">Análise financeira avançada explorando volatilidade e candlestick de mercado com Python. <strong>(Clique para expandir/recolher)</strong></p>
+        
+        <div class="chart-wrapper" id="chart-area">
+          <iframe src="grafico_nvda.html" width="100%" height="400px" frameborder="0" style="border-radius: 8px; background: #1a1a1a;"></iframe>
+          <div style="margin-top: 30px; text-align: center;">
+            <p style="margin-bottom: 15px; color: #fff;">Análise completa de volatilidade e drawdowns disponível no repositório.</p>
+            <a href="https://github.com/pedroanalyticsdev/nvidia-stock-analysis" target="_blank" class="btn-outline" onclick="event.stopPropagation();">
+              Para ver o projeto completo clique aqui <i class="fa-solid fa-arrow-up-right-from-square" style="margin-left: 8px;"></i>
+            </a>
+          </div>
+        </div>
       </div>
-    </a>
+    </div>
 
     <div class="card" data-aos="fade-up" data-aos-delay="100">
       <h3>Business Intelligence</h3>
@@ -341,6 +362,25 @@
     offset: 50,
     duration: 1000,
     easing: 'ease-out-cubic'
+  });
+
+  // Lógica de expansão e fechamento corrigida
+  const nvidiaCard = document.getElementById('nvidia-project');
+  const cardIcon = document.getElementById('card-icon');
+
+  nvidiaCard.addEventListener('click', function(e) {
+    // Alterna a classe active
+    const isActive = this.classList.toggle('active');
+    
+    // Gira o ícone (180 graus se ativo, 0 se inativo)
+    cardIcon.style.transform = isActive ? 'rotate(180deg)' : 'rotate(0deg)';
+    
+    // Se estiver abrindo, faz o scroll suave
+    if (isActive) {
+      setTimeout(() => {
+        this.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }, 400);
+    }
   });
 </script>
 
