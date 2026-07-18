@@ -3,86 +3,236 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Pedro Henrique | Portfólio</title>
-  
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+  <title>Pedro Henrique | Dev Back-End Java</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
   <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 
   <style>
     :root {
-      --bg: #0d0d0d;
-      --card-bg: rgba(26, 26, 26, 0.4);
-      --border-color: #2a2a2a;
-      --text-gray: #aaa;
-      --accent: #ffffff;
+      --bg: #09090b;
+      --card-bg: rgba(255,255,255,0.03);
+      --card-bg-hover: rgba(255,255,255,0.05);
+      --border-color: #232326;
+      --border-hover: #3a3a3f;
+      --text: #f2f2f0;
+      --text-gray: #91919a;
+      --text-dim: #55555d;
+      --accent: #c9c7c0;
+      --accent-dim: rgba(201, 199, 192, 0.12);
+      --accent-glow: rgba(201, 199, 192, 0.22);
+      --mono: 'JetBrains Mono', monospace;
+      --sans: 'Inter', sans-serif;
     }
 
     * { margin:0; padding:0; box-sizing:border-box; scroll-behavior: smooth; }
 
+    ::selection { background: var(--accent-dim); color: var(--accent); }
+
     body {
-      font-family: 'Poppins', sans-serif;
+      font-family: var(--sans);
       background-color: var(--bg);
-      background-image: 
-        radial-gradient(circle at 80% 20%, rgba(255,255,255,0.05) 0%, transparent 40%),
-        radial-gradient(circle at 10% 80%, rgba(255,255,255,0.03) 0%, transparent 30%);
-      color: #fff;
+      background-image:
+        radial-gradient(circle at 85% 10%, rgba(255,255,255,0.09) 0%, transparent 55%),
+        radial-gradient(circle at 5% 90%, rgba(255,255,255,0.06) 0%, transparent 45%),
+        radial-gradient(circle at 50% 50%, rgba(201,199,192,0.04) 0%, transparent 60%),
+        radial-gradient(circle at 70% 25%, rgba(59,100,220,0.10) 0%, transparent 50%),
+        radial-gradient(circle, rgba(255,255,255,0.06) 1px, transparent 1px);
+      background-size: auto, auto, auto, auto, 28px 28px;
+      background-attachment: fixed, fixed, fixed, fixed, fixed;
+      color: var(--text);
       line-height: 1.6;
       overflow-x: hidden;
     }
 
+    a { color: inherit; }
+
+    :focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: 3px;
+      border-radius: 2px;
+    }
+
+    /* ---------- Header ---------- */
     header {
       display: flex;
       justify-content: space-between;
-      padding: 20px 8%;
       align-items: center;
+      padding: 18px 8%;
       position: fixed;
       top: 0;
       width: 100%;
       z-index: 1000;
-      background: rgba(13, 13, 13, 0.8);
-      backdrop-filter: blur(12px);
+      background: rgba(9, 9, 11, 0.75);
+      backdrop-filter: blur(14px);
       border-bottom: 1px solid var(--border-color);
     }
 
-    .logo { font-weight: 800; font-size: 20px; letter-spacing: 2px; }
+    .logo {
+      font-family: var(--mono);
+      font-weight: 700;
+      font-size: 16px;
+      letter-spacing: 0.5px;
+      color: var(--text);
+    }
+    .logo span { color: var(--accent); }
+
+    nav { display: flex; align-items: center; }
 
     nav a {
-      margin: 0 15px;
+      margin-left: 28px;
       text-decoration: none;
       color: var(--text-gray);
-      font-size: 14px;
+      font-family: var(--mono);
+      font-size: 13px;
+      position: relative;
       transition: 0.3s;
     }
 
-    nav a:hover { color: #fff; }
+    nav a::before {
+      content: '';
+      position: absolute;
+      left: 0; bottom: -6px;
+      width: 0; height: 1px;
+      background: var(--accent);
+      transition: width 0.3s ease;
+    }
 
+    nav a:hover { color: var(--text); }
+    nav a:hover::before { width: 100%; }
+
+    .menu-toggle {
+      display: none;
+      background: none;
+      border: 1px solid var(--border-color);
+      color: var(--text);
+      font-size: 16px;
+      width: 38px;
+      height: 38px;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    /* ---------- Hero ---------- */
     .hero {
-      height: 100vh;
+      min-height: 100vh;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 0 8%;
-      gap: 40px;
+      max-width: 1360px;
+      margin: 0 auto;
+      padding: 110px 8% 60px;
+      gap: 30px;
     }
 
-    .hero-text { 
-      flex: 1;
-      max-width: 650px; 
-      text-align: left;
+    .hero-text { flex: 1; max-width: 620px; }
+
+    .eyebrow {
+      font-family: var(--mono);
+      text-transform: none;
+      letter-spacing: 0.5px;
+      font-size: 13px;
+      color: var(--accent);
+      margin-bottom: 16px;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 9px 18px;
+      border: 1px solid var(--border-color);
+      border-radius: 999px;
+      background: rgba(255,255,255,0.02);
     }
 
-    .hero-img {
+    .eyebrow-text {
+      color: var(--text-gray);
+    }
+
+    .eyebrow .dot {
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: #22c55e;
+      box-shadow: 0 0 8px rgba(34, 197, 94, 0.55);
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.35; }
+    }
+
+    .hero-text h1 {
+      font-family: var(--mono);
+      font-size: clamp(2rem, 4.2vw, 3.2rem);
+      font-weight: 700;
+      line-height: 1.2;
+      margin-bottom: 22px;
+      letter-spacing: -0.5px;
+    }
+
+    .hero-text h1 .accent-text { color: var(--accent); }
+
+    .hero-text p.description {
+      color: var(--text-gray);
+      font-size: 17px;
+      max-width: 520px;
+      margin-bottom: 36px;
+    }
+
+    .btn-container { display: flex; gap: 14px; flex-wrap: wrap; }
+
+    .btn-outline, .btn-fill {
+      display: inline-flex;
+      align-items: center;
+      font-family: var(--mono);
+      padding: 13px 26px;
+      border-radius: 4px;
+      text-decoration: none;
+      font-weight: 500;
+      font-size: 13px;
+      letter-spacing: 0.3px;
+      transition: all 0.3s ease;
+    }
+
+    .btn-outline {
+      border: 1px solid var(--border-hover);
+      color: var(--text);
+    }
+    .btn-outline:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+      transform: translateY(-3px);
+    }
+
+    .btn-fill {
+      background: var(--accent);
+      color: #09090b;
+      border: 1px solid var(--accent);
+    }
+    .btn-fill:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 10px 25px var(--accent-glow);
+    }
+
+    /* Photo + floating terminal signature element */
+    .hero-visual {
       flex: 1;
       display: flex;
       justify-content: center;
-      align-items: center;
       position: relative;
+      max-width: 480px;
+      padding-bottom: 90px;
+      padding-left: 20px;
     }
 
-    .hero-img img {
-      width: 420px; 
-      height: 540px; 
+    .hero-photo {
+      position: relative;
+      z-index: 2;
+    }
+
+    .hero-photo img {
+      width: 420px;
+      height: 540px;
       object-fit: cover;
       border-radius: 20px;
       filter: grayscale(40%) contrast(110%);
@@ -91,216 +241,439 @@
       transition: 0.5s ease;
       position: relative;
       z-index: 2;
+      display: block;
     }
 
-    .hero-img::after {
+    .hero-photo::after {
       content: '';
       position: absolute;
-      width: 420px; 
+      width: 420px;
       height: 540px;
       border: 2px solid var(--accent);
       border-radius: 20px;
-      z-index: 1; 
+      z-index: 1;
       top: 25px;
-      left: calc(50% - 185px);
-      box-shadow: 0 0 30px rgba(255, 255, 255, 0.1); 
-      opacity: 0.3; 
+      left: -25px;
+      box-shadow: 0 0 30px var(--accent-glow);
+      opacity: 0.3;
       transition: 0.5s ease;
     }
 
-    .hero-img:hover img {
+    .hero-photo:hover img {
       filter: grayscale(0%) contrast(100%);
       transform: scale(1.02);
       border-color: var(--accent);
     }
 
-    .hero-img:hover::after {
+    .hero-photo:hover::after {
       opacity: 0.8;
       top: 15px;
-      left: calc(50% - 195px);
-      box-shadow: 0 0 50px rgba(255, 255, 255, 0.2);
+      left: -35px;
+      box-shadow: 0 0 50px var(--accent-glow);
     }
 
-    .hero-text .greeting {
-      text-transform: uppercase;
-      letter-spacing: 4px;
-      font-size: 12px;
-      color: var(--text-gray);
-      margin-bottom: 10px;
-      display: block;
+    .terminal {
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      width: 300px;
+      background: #0e0e11;
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 25px 50px rgba(0,0,0,0.6);
+      z-index: 3;
     }
 
-    .hero-text h1 {
-      font-size: clamp(2rem, 5vw, 3.5rem);
-      font-weight: 800;
-      line-height: 1.1;
-      margin-bottom: 25px;
-      letter-spacing: -1px;
-    }
-
-    .hero-text p.description {
-      color: var(--text-gray);
-      font-size: 18px;
-      margin-bottom: 40px;
-    }
-
-    .btn-container {
+    .terminal-bar {
       display: flex;
-      gap: 15px;
-      flex-wrap: wrap;
+      align-items: center;
+      gap: 7px;
+      padding: 9px 12px;
+      background: #131316;
+      border-bottom: 1px solid var(--border-color);
     }
+    .terminal-bar span { width: 9px; height: 9px; border-radius: 50%; display: inline-block; }
+    .terminal-bar span:nth-child(1) { background: #ff5f56; }
+    .terminal-bar span:nth-child(2) { background: #ffbd2e; }
+    .terminal-bar span:nth-child(3) { background: #27c93f; }
+    .terminal-bar .filename { margin-left: auto; font-family: var(--mono); font-size: 10.5px; color: var(--text-dim); }
 
-    .btn-outline {
+    .terminal-body {
+      font-family: var(--mono);
+      font-size: 11.5px;
+      padding: 16px 16px;
+      min-height: 150px;
+      color: #d4d4d8;
+    }
+    .terminal-body .line { margin-bottom: 5px; white-space: pre-wrap; }
+    .terminal-body .prompt { color: var(--accent); }
+    .terminal-body .ok { color: var(--accent); }
+    .terminal-body .muted { color: var(--text-dim); }
+    .cursor {
       display: inline-block;
-      border: 1px solid #fff;
-      padding: 12px 30px;
-      border-radius: 4px;
-      color: #fff;
-      text-decoration: none;
-      font-weight: 600;
-      transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
-      text-transform: uppercase;
-      letter-spacing: 1px;
+      width: 6px; height: 12px;
+      background: var(--accent);
+      margin-left: 2px;
+      animation: blink 1s steps(1) infinite;
+      vertical-align: text-bottom;
+    }
+    @keyframes blink { 50% { opacity: 0; } }
+
+    @media (prefers-reduced-motion: reduce) {
+      .eyebrow .dot, .cursor { animation: none; }
+    }
+
+    /* ---------- Sections ---------- */
+    .section { padding: 70px 8%; }
+
+    .section-label {
+      font-family: var(--mono);
       font-size: 13px;
+      color: var(--accent);
+      margin-bottom: 10px;
     }
 
-    .btn-outline:hover {
-      background: #fff;
-      color: #000;
-      transform: translateY(-5px);
-      box-shadow: 0 10px 20px rgba(255,255,255,0.1);
+    .section h2 {
+      font-family: var(--mono);
+      font-size: 30px;
+      margin-bottom: 40px;
+      font-weight: 700;
+      letter-spacing: -0.3px;
     }
 
-    .section { padding: 60px 8%; } 
-    .section h2 { font-size: 32px; margin-bottom: 30px; font-weight: 700; position: relative; display: inline-block; }
-    .section h2::after { content: ''; position: absolute; width: 40px; height: 2px; background: #fff; bottom: -10px; left: 0; }
+    .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 26px; align-items: start; }
 
-    .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; align-items: start; }
-    
-    .card { 
-      background: var(--card-bg); 
-      padding: 40px; 
-      border-radius: 4px; 
-      border: 1px solid var(--border-color); 
-      transition: 0.4s cubic-bezier(0.165, 0.84, 0.44, 1); 
-      backdrop-filter: blur(5px);
+    .card {
+      background: var(--card-bg);
+      padding: 34px;
+      border-radius: 6px;
+      border: 1px solid var(--border-color);
+      transition: 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
       height: 100%;
     }
 
-    .card-expandable {
-      cursor: pointer;
-      grid-column: span 1;
-      transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
+    .card-expandable { cursor: pointer; grid-column: span 1; transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1); }
+    .card-expandable.active { grid-column: 1 / -1; cursor: default; border-color: var(--accent); }
+
+    .card:hover { border-color: var(--border-hover); transform: translateY(-6px); background: var(--card-bg-hover); }
+    .card-expandable:hover { border-color: var(--accent); }
+
+    .card h3 { margin-bottom: 14px; font-weight: 600; font-size: 19px; font-family: var(--mono); }
+    .card p { color: var(--text-gray); font-size: 14.5px; }
+
+    .tag-row { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 18px; }
+    .tag {
+      font-family: var(--mono);
+      font-size: 11.5px;
+      padding: 5px 12px;
+      border: 1px solid var(--border-color);
+      border-radius: 3px;
+      color: var(--text-gray);
     }
 
-    .card-expandable.active {
-      grid-column: 1 / -1; 
-      cursor: default;
-      border-color: #fff;
+    .chart-wrapper { height: 0; overflow: hidden; opacity: 0; transition: all 0.5s ease; margin-top: 0; }
+    .active .chart-wrapper { height: auto; opacity: 1; margin-top: 25px; padding-bottom: 10px; }
+
+    .detail-box {
+      background: rgba(255,255,255,0.02);
+      border: 1px solid var(--border-color);
+      padding: 28px;
+      border-radius: 6px;
+      margin-bottom: 20px;
     }
+    .detail-box h4 { margin-bottom: 14px; font-weight: 600; font-family: var(--mono); font-size: 15px; }
+    .detail-box ul { list-style-type: none; padding-left: 0; font-size: 14px; color: var(--text-gray); }
+    .detail-box li { margin-bottom: 9px; }
+    .detail-box li i { color: var(--accent); margin-right: 8px; }
 
-    .card:hover { 
-      border-color: #fff; 
-      transform: translateY(-10px); 
-      background: rgba(255,255,255,0.05); 
+    .about-text {
+      max-width: 780px;
+      color: var(--text-gray);
+      font-size: 17px;
     }
+    .about-text strong { color: var(--text); font-weight: 600; }
 
-    .card h3 { margin-bottom: 15px; font-weight: 600; font-size: 20px; }
-    .card p { color: var(--text-gray); font-size: 15px; }
-
-    .chart-wrapper {
-      height: 0;
-      overflow: hidden;
-      opacity: 0;
-      transition: all 0.5s ease;
-      margin-top: 0;
+    .skills-grid { display: flex; flex-wrap: wrap; gap: 12px; }
+    .skills-grid span {
+      font-family: var(--mono);
+      border: 1px solid var(--border-color);
+      padding: 10px 20px;
+      border-radius: 4px;
+      font-size: 13.5px;
+      transition: 0.3s;
     }
+    .skills-grid span:hover { border-color: var(--accent); color: var(--accent); }
 
-    .active .chart-wrapper {
-      height: auto;
-      opacity: 1;
-      margin-top: 25px;
-      padding-bottom: 20px;
+    .contacts-container { display: flex; flex-wrap: wrap; gap: 10px 30px; }
+    .contacts-container a {
+      color: var(--text);
+      text-decoration: none;
+      font-size: 14.5px;
+      font-family: var(--mono);
+      border-bottom: 1px solid transparent;
+      transition: 0.3s;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
     }
+    .contacts-container a:hover { border-bottom-color: var(--accent); color: var(--accent); }
 
-    .skills-grid { display: flex; flex-wrap: wrap; gap: 15px; }
-    .skills-grid span { border: 1px solid var(--border-color); padding: 10px 25px; border-radius: 4px; font-size: 14px; transition: 0.3s; }
-    .skills-grid span:hover { background: #fff; color: #000; border-color: #fff; }
-
-    .contacts-container a { margin-right: 25px; color: #fff; text-decoration: none; font-size: 14px; border-bottom: 1px solid transparent; transition: 0.3s; }
-    .contacts-container a:hover { border-bottom: 1px solid #fff; color: var(--text-gray); }
-
-    #card-icon { cursor: pointer; }
+    footer {
+      padding: 30px 8%;
+      border-top: 1px solid var(--border-color);
+      color: var(--text-dim);
+      font-family: var(--mono);
+      font-size: 12px;
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
 
     @media (max-width: 992px) {
-      .hero { flex-direction: column-reverse; text-align: center; height: auto; padding: 120px 8% 40px; }
-      .hero-text { text-align: center; display: flex; flex-direction: column; align-items: center; }
-      .hero-img img { width: 300px; height: 380px; }
-      .hero-img::after { 
-        width: 300px; 
-        height: 380px; 
-        top: 15px;
-        left: calc(50% - 135px);
+      .hero { flex-direction: column-reverse; text-align: center; padding: 130px 8% 40px; }
+      .hero-text { align-items: center; display: flex; flex-direction: column; }
+      .hero-text p.description { max-width: 100%; }
+      .btn-container { justify-content: center; }
+      .hero-visual { max-width: 100%; padding-left: 0; justify-content: center; }
+    }
+
+    @media (max-width: 560px) {
+      .hero-visual { padding-bottom: 60px; padding-left: 30px; }
+      .hero-photo img { width: 260px; height: 340px; }
+      .hero-photo::after { width: 260px; height: 340px; top: 16px; left: -16px; }
+      .hero-photo:hover::after { top: 10px; left: -22px; }
+      .terminal { width: 230px; left: 50%; transform: translateX(-72%); }
+      .terminal-body { font-size: 10px; padding: 12px; min-height: 130px; }
+    }
+
+    @media (max-width: 768px) {
+      nav { position: fixed; top: 0; right: -100%; height: 100vh; width: 70%; max-width: 300px;
+            background: rgba(9,9,11,0.98); border-left: 1px solid var(--border-color);
+            flex-direction: column; justify-content: center; align-items: flex-start;
+            padding: 40px; transition: right 0.4s ease; }
+      nav.open { right: 0; }
+      nav a { margin: 14px 0; font-size: 16px; }
+      .menu-toggle { display: block; }
+      .section { padding: 50px 6%; }
+    }
+
+    /* Cursor glow */
+    #cursor-glow {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 180px;
+      height: 180px;
+      pointer-events: none;
+      z-index: 9999;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(255,255,255,0.008) 0%, transparent 70%);
+      transform: translate(calc(var(--x, 50vw) - 50%), calc(var(--y, 50vh) - 50%));
+      opacity: 0;
+      transition: opacity 0.4s ease;
+      will-change: transform;
+    }
+    #cursor-glow.visible { opacity: 1; }
+
+    @media (max-width: 768px), (hover: none) {
+      #cursor-glow { display: none; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      #cursor-glow { display: none; }
+    }
+
+    /* ---------- Scroll progress ---------- */
+    #scroll-progress {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%;
+      height: 2px;
+      background: var(--accent);
+      transform: scaleX(0);
+      transform-origin: 0 50%;
+      z-index: 1100;
+      box-shadow: 0 0 8px var(--accent-glow);
+      will-change: transform;
+    }
+
+    /* ---------- Nav scrollspy ---------- */
+    nav a.active { color: var(--text); }
+    nav a.active::before { width: 100%; }
+
+    /* ---------- Hero entrance orchestration ---------- */
+    .reveal-item {
+      opacity: 0;
+      transform: translateY(22px);
+      transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1), transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .reveal-item.in { opacity: 1; transform: translateY(0); }
+
+    .hero-text h1 .word {
+      display: inline-block;
+      opacity: 0;
+      transform: translateY(0.35em);
+      filter: blur(6px);
+      transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1), transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), filter 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .hero-text h1 .word.in { opacity: 1; transform: translateY(0); filter: blur(0); }
+    .hero-text h1 { overflow: hidden; }
+
+    .hero-photo {
+      transform-style: preserve-3d;
+      will-change: transform;
+      transition: transform 0.25s ease-out;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .reveal-item, .hero-text h1 .word {
+        opacity: 1 !important;
+        transform: none !important;
+        filter: none !important;
+        transition: none !important;
       }
-      .section { padding: 40px 8%; }
+    }
+
+    /* ---------- Section heading underline reveal ---------- */
+    .section h2 {
+      position: relative;
+      padding-bottom: 16px;
+      display: inline-block;
+    }
+    .section h2::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      height: 2px;
+      width: 100%;
+      background: var(--accent);
+      transform: scaleX(0);
+      transform-origin: 0 50%;
+      transition: transform 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .section h2.in-view::after { transform: scaleX(1); }
+
+    /* ---------- Card spotlight ---------- */
+    .card {
+      position: relative;
+      isolation: isolate;
+    }
+    .card::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: inherit;
+      background: radial-gradient(260px circle at var(--mx, 50%) var(--my, 50%), var(--accent-dim), transparent 70%);
+      opacity: 0;
+      transition: opacity 0.35s ease;
+      pointer-events: none;
+      z-index: 0;
+    }
+    .card:hover::before { opacity: 1; }
+    .card-content, .card > h3, .card > p, .card > .tag-row { position: relative; z-index: 1; }
+
+    /* ---------- Button micro-interactions ---------- */
+    .btn-outline, .btn-fill {
+      position: relative;
+      overflow: hidden;
+    }
+    .btn-outline:active, .btn-fill:active {
+      transform: translateY(-1px) scale(0.97);
+      transition: transform 0.12s ease;
+    }
+
+    /* ---------- Skill tag stagger ---------- */
+    .skills-grid span {
+      opacity: 0;
+      transform: translateY(14px);
+      transition: opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1), transform 0.5s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.3s, color 0.3s;
+    }
+    .skills-grid span.in { opacity: 1; transform: translateY(0); }
+
+    @media (prefers-reduced-motion: reduce) {
+      .section h2::after { transition: none; }
+      .card::before { transition: none; }
+      .skills-grid span { opacity: 1 !important; transform: none !important; transition: none !important; }
     }
   </style>
 </head>
 <body>
 
+<div id="cursor-glow"></div>
+<div id="scroll-progress"></div>
+
 <header>
-  <div class="logo">PH</div>
-  <nav>
-    <a href="#home">Home</a>
-    <a href="#projetos">Projetos</a>
-    <a href="#sobre">Sobre</a>
-    <a href="#skills">Skills</a>
-    <a href="#contato">Contato</a>
+  <div class="logo">pedro<span>@</span>backend</div>
+  <button class="menu-toggle" id="menuToggle" aria-label="Abrir menu"><i class="fa-solid fa-bars"></i></button>
+  <nav id="navMenu">
+    <a href="#home">home</a>
+    <a href="#projetos">projetos</a>
+    <a href="#sobre">sobre</a>
+    <a href="#skills">skills</a>
+    <a href="#contato">contato</a>
   </nav>
 </header>
 
 <section class="hero" id="home">
   <div class="hero-text" data-aos="fade-right">
-    <span class="greeting">Olá, eu sou o Pedro Henrique</span>
-    <h1>Analista de Dados & <br>Programador</h1>
-    <p class="description">Estudante de Análise e Desenvolvimento de Sistemas focado em extrair inteligência de dados com Python, SQL e tecnologias modernas.</p>
-    
-    <div class="btn-container">
-      <a class="btn-outline" href="#projetos">Ver Projetos</a>
-      <a class="btn-outline" style="background: #fff; color: #000;" href="curriculo.pdf" download="Curriculo_Pedro_Henrique.pdf">
+    <span class="eyebrow reveal-item"><span class="dot"></span><span class="eyebrow-text">disponível para novas oportunidades</span></span>
+    <h1 id="heroTitle">Desenvolvedor <span class="accent-text">Back-End</span> Java</h1>
+    <p class="description reveal-item">Construo aplicações robustas com Java e Spring Boot, e aplico inteligência analítica em dados com Python — do banco de dados à API, pensando em performance e escalabilidade.</p>
+
+    <div class="btn-container reveal-item">
+      <a class="btn-fill" href="#projetos">Ver projetos</a>
+      <a class="btn-outline" href="curriculo.pdf" download="Curriculo_Pedro_Henrique.pdf">
         <i class="fa-solid fa-download" style="margin-right: 8px;"></i> Currículo
       </a>
     </div>
   </div>
 
-  <div class="hero-img" data-aos="fade-left">
-    <img src="https://i.postimg.cc/NjmBhMm7/foto-portifolio.jpg" alt="Pedro Henrique">
+  <div class="hero-visual" data-aos="fade-left">
+    <div class="terminal">
+      <div class="terminal-bar">
+        <span></span><span></span><span></span>
+        <span class="filename">pedro.java</span>
+      </div>
+      <div class="terminal-body" id="terminalBody"></div>
+    </div>
+    <div class="hero-photo">
+      <img src="https://i.postimg.cc/44jBBy2P/fotoportf.jpg">
+    </div>
   </div>
 </section>
 
 <section class="section" id="projetos">
-  <h2 data-aos="fade-right">Projetos Pessoais</h2>
+  <div data-aos="fade-right">
+    <div class="section-label">// projetos</div>
+    <h2>Projetos Pessoais</h2>
+  </div>
   <div class="cards">
-    
+
     <div class="card card-expandable" id="nvidia-project" data-aos="fade-up">
       <div class="card-content">
-        <h3>Projeto NVIDIA <i class="fa-solid fa-chevron-down" id="card-icon" style="font-size: 14px; margin-left: 10px; transition: 0.4s;"></i></h3>
-        <p id="nvidia-desc">Análise financeira avançada explorando volatilidade e candlestick de mercado com Python. <strong>(Toque para ver o Dashboard)</strong></p>
-        
+        <h3>Análise Financeira Avançada (NVIDIA) <i class="fa-solid fa-chevron-down" id="card-icon" style="font-size: 13px; margin-left: 8px; transition: 0.4s; color: var(--accent);"></i></h3>
+        <p id="nvidia-desc">Projeto completo de Data Analytics focado no comportamento histórico e de tendência das ações da NVIDIA (NVDA). <strong style="color:var(--text-gray);">Toque para ver os detalhes técnicos.</strong></p>
+        <div class="tag-row">
+          <span class="tag">Python</span><span class="tag">Pandas</span><span class="tag">NumPy</span><span class="tag">Data Viz</span>
+        </div>
+
         <div class="chart-wrapper" id="chart-area">
-          <!-- ALTURA AJUSTADA PARA 600PX E FUNDO TRANSPARENTE -->
-          <iframe src="grafico_nvda.html" 
-                  width="100%" 
-                  height="600px" 
-                  frameborder="0" 
-                  scrolling="no" 
-                  style="border-radius: 8px; background: transparent; overflow: hidden; display: block;">
-          </iframe>
-          
-          <div style="margin-top: 20px; text-align: center;">
-            <p style="margin-bottom: 15px; color: var(--text-gray); font-size: 14px;">Análise completa de volatilidade e drawdowns disponível no repositório.</p>
+          <div class="detail-box">
+            <h4><i class="fa-brands fa-python" style="margin-right: 8px; color: var(--accent);"></i>Engenharia & Análise de Dados</h4>
+            <p style="font-size: 14px; margin-bottom: 15px; color: var(--text-gray);">Desenvolvido inteiramente em Python, o projeto realiza uma análise exploratória minuciosa com foco em risco, volatilidade e tendências de mercado.</p>
+            <ul>
+              <li><i class="fa-solid fa-check"></i>Extração e processamento de dados do histórico de ações da NVIDIA.</li>
+              <li><i class="fa-solid fa-check"></i>Mapeamento e cálculo de volatilidade e drawdowns de mercado.</li>
+              <li><i class="fa-solid fa-check"></i>Geração de inteligência visual através de gráficos dinâmicos de candlestick.</li>
+            </ul>
+          </div>
+
+          <div style="text-align: center;">
+            <p style="margin-bottom: 15px; color: var(--text-gray); font-size: 14px;">Explore o código-fonte do notebook e toda a estrutura lógica do projeto.</p>
             <a href="https://github.com/pedroanalyticsdev/nvidia-stock-analysis" target="_blank" class="btn-outline" onclick="event.stopPropagation();">
-              Para ver o projeto completo clique aqui <i class="fa-solid fa-arrow-up-right-from-square" style="margin-left: 8px;"></i>
+              Ver no GitHub <i class="fa-solid fa-arrow-up-right-from-square" style="margin-left: 8px;"></i>
             </a>
           </div>
         </div>
@@ -308,45 +681,59 @@
     </div>
 
     <div class="card" data-aos="fade-up" data-aos-delay="100">
-      <h3>Business Intelligence</h3>
-      <p>Criação de dashboards dinâmicos para visualização de métricas e suporte à decisão.</p>
+      <h3>APIs RESTful & Spring Ecosystem</h3>
+      <p>Construção de microsserviços integrando Spring Boot, Spring Security para autenticação e Spring Data JPA para mapeamento objeto-relacional.</p>
+      <div class="tag-row">
+        <span class="tag">Spring Boot</span><span class="tag">Spring Security</span><span class="tag">JPA</span>
+      </div>
     </div>
+
     <div class="card" data-aos="fade-up" data-aos-delay="200">
-      <h3>Data Engineering</h3>
-      <p>Estruturação de bancos de dados robustos utilizando MySQL e PostgreSQL.</p>
+      <h3>Persistência & Modelagem SQL</h3>
+      <p>Desenvolvimento e otimização de queries, relacionamentos complexos, triggers e indexação utilizando bancos relacionais como PostgreSQL e MySQL.</p>
+      <div class="tag-row">
+        <span class="tag">PostgreSQL</span><span class="tag">MySQL</span><span class="tag">SQL</span>
+      </div>
     </div>
   </div>
 </section>
 
 <section class="section" id="sobre">
   <div data-aos="fade-up">
+    <div class="section-label">// sobre</div>
     <h2>Sobre Mim</h2>
-    <p style="max-width: 800px; color: var(--text-gray); font-size: 18px;">
-      Atualmente cursando Análise e Desenvolvimento de Sistemas na Anhembi Morumbi. Combino lógica de programação com visão analítica para resolver problemas complexos através dos dados. Procuro constantemente evoluir meu stack tecnológico e contribuir em projetos de alto impacto.
+    <p class="about-text">
+      Atualmente cursando <strong>Análise e Desenvolvimento de Sistemas</strong> na Anhembi Morumbi, com foco em Engenharia de Software Back-End. Direcionei minha carreira para o ecossistema <strong>Java</strong> devido à sua robustez, mas trago um sólido background analítico em <strong>Python</strong>. Dedico-me a escrever código limpo, testável e a projetar arquiteturas escaláveis que resolvem problemas de negócio complexos.
     </p>
   </div>
 </section>
 
 <section class="section" id="skills">
-  <h2 data-aos="fade-right">Minhas Skills</h2>
+  <div data-aos="fade-right">
+    <div class="section-label">// skills</div>
+    <h2>Minhas Skills</h2>
+  </div>
   <div class="skills-grid" data-aos="fade-up">
-    <span>Python</span>
-    <span>MySQL</span>
-    <span>PostgreSQL</span>
-    <span>Power BI</span>
-    <span>Pandas / NumPy</span>
-    <span>Seaborn</span>
-    <span>Plotly</span>
-    <span>Jupyter Notebook</span>
+    <span>Java (POO)</span>
+    <span>Spring Boot</span>
+    <span>Spring Data JPA</span>
+    <span>PostgreSQL / MySQL</span>
+    <span>Python (Pandas & NumPy)</span>
+    <span>Arquitetura REST</span>
+    <span>Padrões de Projeto</span>
     <span>Git & GitHub</span>
+    <span>Testes Unitários (JUnit)</span>
   </div>
 </section>
 
 <section class="section" id="contato">
-  <h2 data-aos="fade-up">Conectar</h2>
+  <div data-aos="fade-up">
+    <div class="section-label">// contato</div>
+    <h2>Conectar</h2>
+  </div>
   <div class="contacts-container">
     <a href="mailto:p.souza123754@gmail.com" data-aos="fade-up" data-aos-delay="100">
-      <i class="fa-regular fa-envelope"></i> Email Profissional
+      <i class="fa-regular fa-envelope"></i> Email
     </a>
     <a href="https://www.linkedin.com/in/pedro-henrique-souza-santos-4064b9352/" target="_blank" data-aos="fade-up" data-aos-delay="200">
       <i class="fa-brands fa-linkedin"></i> LinkedIn
@@ -360,28 +747,220 @@
   </div>
 </section>
 
+<footer>
+  <span>© 2026 Pedro Henrique</span>
+  <span>built with java &amp; coffee</span>
+</footer>
+
 <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 <script>
-  AOS.init({
-    once: true,
-    offset: 50,
-    duration: 1000,
-    easing: 'ease-out-cubic'
-  });
+  AOS.init({ once: true, offset: 50, duration: 900, easing: 'ease-out-cubic' });
 
+  /* mobile menu */
+  const menuToggle = document.getElementById('menuToggle');
+  const navMenu = document.getElementById('navMenu');
+  menuToggle.addEventListener('click', () => navMenu.classList.toggle('open'));
+  navMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => navMenu.classList.remove('open')));
+
+  /* expandable project card */
   const nvidiaCard = document.getElementById('nvidia-project');
   const cardIcon = document.getElementById('card-icon');
-
-  nvidiaCard.addEventListener('click', function(e) {
+  nvidiaCard.addEventListener('click', function () {
     const isActive = this.classList.toggle('active');
     cardIcon.style.transform = isActive ? 'rotate(180deg)' : 'rotate(0deg)';
-    
     if (isActive) {
-      setTimeout(() => {
-        this.scrollIntoView({ behavior: 'smooth', block: 'center' });
-      }, 400);
+      setTimeout(() => this.scrollIntoView({ behavior: 'smooth', block: 'center' }), 400);
     }
   });
+
+  /* terminal boot sequence */
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const terminalBody = document.getElementById('terminalBody');
+  const lines = [
+    { text: '$ java -jar pedro-backend.jar', cls: 'prompt' },
+    { text: 'Iniciando aplicação Spring Boot...', cls: 'muted' },
+    { text: 'Conectando ao PostgreSQL...', cls: 'muted' },
+    { text: '[OK] Conexão estabelecida', cls: 'ok' },
+    { text: 'Mapeando endpoints REST...', cls: 'muted' },
+    { text: '[OK] 12 endpoints ativos', cls: 'ok' },
+    { text: 'Status: pronto para novos desafios ✓', cls: 'ok' }
+  ];
+
+  function renderStatic() {
+    terminalBody.innerHTML = lines.map(l => `<div class="line ${l.cls}">${l.text}</div>`).join('') + '<span class="cursor"></span>';
+  }
+
+  async function typeLines() {
+    for (const l of lines) {
+      const div = document.createElement('div');
+      div.className = 'line ' + l.cls;
+      terminalBody.appendChild(div);
+      for (let i = 0; i <= l.text.length; i++) {
+        div.textContent = l.text.slice(0, i);
+        await new Promise(r => setTimeout(r, 14));
+      }
+      await new Promise(r => setTimeout(r, 180));
+    }
+    const cursor = document.createElement('span');
+    cursor.className = 'cursor';
+    terminalBody.appendChild(cursor);
+  }
+
+  if (reduceMotion) {
+    renderStatic();
+  } else {
+    typeLines();
+  }
+
+  /* cursor glow */
+  const glow = document.getElementById('cursor-glow');
+  const hasFinePointer = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+  if (glow && hasFinePointer && !reduceMotion) {
+    window.addEventListener('mousemove', (e) => {
+      glow.style.setProperty('--x', e.clientX + 'px');
+      glow.style.setProperty('--y', e.clientY + 'px');
+      glow.classList.add('visible');
+    });
+    document.addEventListener('mouseleave', () => glow.classList.remove('visible'));
+  }
+
+  /* ---------- scroll progress bar ---------- */
+  const progressBar = document.getElementById('scroll-progress');
+  function updateProgress() {
+    const scrollTop = window.scrollY;
+    const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+    const pct = docHeight > 0 ? scrollTop / docHeight : 0;
+    progressBar.style.transform = `scaleX(${pct})`;
+  }
+  window.addEventListener('scroll', updateProgress, { passive: true });
+  updateProgress();
+
+  /* ---------- nav scrollspy ---------- */
+  const navLinks = Array.from(document.querySelectorAll('#navMenu a'));
+  const spySections = navLinks
+    .map(a => document.querySelector(a.getAttribute('href')))
+    .filter(Boolean);
+
+  const spyObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      const link = navLinks.find(a => a.getAttribute('href') === '#' + entry.target.id);
+      if (!link) return;
+      if (entry.isIntersecting) {
+        navLinks.forEach(a => a.classList.remove('active'));
+        link.classList.add('active');
+      }
+    });
+  }, { rootMargin: '-45% 0px -50% 0px', threshold: 0 });
+
+  spySections.forEach(sec => spyObserver.observe(sec));
+
+  /* ---------- hero entrance orchestration ---------- */
+  function splitHeroTitle() {
+    const titleEl = document.getElementById('heroTitle');
+    if (!titleEl) return [];
+    const nodes = Array.from(titleEl.childNodes);
+    titleEl.innerHTML = '';
+    const wordEls = [];
+    nodes.forEach(node => {
+      if (node.nodeType === Node.TEXT_NODE) {
+        node.textContent.split(/(\s+)/).forEach(chunk => {
+          if (chunk.trim() === '') {
+            titleEl.appendChild(document.createTextNode(chunk));
+          } else {
+            const span = document.createElement('span');
+            span.className = 'word';
+            span.textContent = chunk;
+            titleEl.appendChild(span);
+            wordEls.push(span);
+          }
+        });
+      } else {
+        // preserve inner elements (e.g. the accent span) but split their text too
+        const clone = node.cloneNode(false);
+        titleEl.appendChild(clone);
+        (node.textContent || '').split(/(\s+)/).forEach(chunk => {
+          if (chunk.trim() === '') {
+            clone.appendChild(document.createTextNode(chunk));
+          } else {
+            const span = document.createElement('span');
+            span.className = 'word';
+            span.textContent = chunk;
+            clone.appendChild(span);
+            wordEls.push(span);
+          }
+        });
+      }
+    });
+    return wordEls;
+  }
+
+  function runHeroEntrance() {
+    const words = splitHeroTitle();
+    const revealItems = document.querySelectorAll('.reveal-item');
+    if (reduceMotion) {
+      words.forEach(w => w.classList.add('in'));
+      revealItems.forEach(el => el.classList.add('in'));
+      return;
+    }
+    words.forEach((w, i) => {
+      setTimeout(() => w.classList.add('in'), 80 + i * 35);
+    });
+    const wordsDuration = 80 + words.length * 35;
+    revealItems.forEach((el, i) => {
+      setTimeout(() => el.classList.add('in'), wordsDuration + 120 + i * 130);
+    });
+  }
+  runHeroEntrance();
+
+  /* ---------- section heading underline reveal ---------- */
+  const headingObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('in-view');
+        headingObserver.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.4 });
+  document.querySelectorAll('.section h2').forEach(h => headingObserver.observe(h));
+
+  /* ---------- skill tags stagger ---------- */
+  const skillTags = document.querySelectorAll('.skills-grid span');
+  const skillsObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        skillTags.forEach((tag, i) => setTimeout(() => tag.classList.add('in'), i * 45));
+        skillsObserver.disconnect();
+      }
+    });
+  }, { threshold: 0.2 });
+  const skillsGridEl = document.querySelector('.skills-grid');
+  if (skillsGridEl) skillsObserver.observe(skillsGridEl);
+
+  /* ---------- card spotlight (cursor-tracked) ---------- */
+  if (hasFinePointer && !reduceMotion) {
+    document.querySelectorAll('.card').forEach(card => {
+      card.addEventListener('mousemove', (e) => {
+        const rect = card.getBoundingClientRect();
+        card.style.setProperty('--mx', (e.clientX - rect.left) + 'px');
+        card.style.setProperty('--my', (e.clientY - rect.top) + 'px');
+      });
+    });
+  }
+
+  /* ---------- hero photo 3D tilt ---------- */
+  const heroPhoto = document.querySelector('.hero-photo');
+  if (heroPhoto && hasFinePointer && !reduceMotion) {
+    const heroVisual = document.querySelector('.hero-visual');
+    heroVisual.addEventListener('mousemove', (e) => {
+      const rect = heroVisual.getBoundingClientRect();
+      const px = (e.clientX - rect.left) / rect.width - 0.5;
+      const py = (e.clientY - rect.top) / rect.height - 0.5;
+      heroPhoto.style.transform = `perspective(900px) rotateY(${px * 8}deg) rotateX(${-py * 8}deg)`;
+    });
+    heroVisual.addEventListener('mouseleave', () => {
+      heroPhoto.style.transform = 'perspective(900px) rotateY(0deg) rotateX(0deg)';
+    });
+  }
 </script>
 
 </body>
